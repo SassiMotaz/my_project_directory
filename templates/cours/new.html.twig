@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau Cours{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">
+                <i class="bi bi-journal-plus"></i> Ajouter un nouveau cours
+            </h4>
+            <a href="{{ path('app_cours_index') }}" class="btn btn-light btn-sm">
+                <i class="bi bi-arrow-left"></i> Retour à la liste
+            </a>
+        </div>
+
+        <div class="card-body">
+            {{ include('cours/_form.html.twig', { 'button_label': 'Enregistrer le cours' }) }}
+        </div>
+    </div>
+</div>
+{% endblock %}

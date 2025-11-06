@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+<section class="text-center text-lg-start">
+  <style>
+    .cascading-right {
+      margin-right: -50px;
+    }
+
+    @media (max-width: 991.98px) {
+      .cascading-right {
+        margin-right: 0;
+      }
+    }
+  </style>
+
+  <div class="container py-4">
+    <div class="row g-0 align-items-center">
+      <div class="col-lg-6 mb-5 mb-lg-0">
+        <div class="card cascading-right bg-body-tertiary" style="backdrop-filter: blur(30px);">
+          <div class="card-body p-5 shadow-5 text-center">
+
+            <h2 class="fw-bold mb-5">Créer un compte</h2>
+
+            {{ form_start(registrationForm) }}
+
+            <div class="form-outline mb-4">
+              {{ form_row(registrationForm.username, {
+                'attr': {'class': 'form-control', 'placeholder': "Nom d’utilisateur"}
+              }) }}
+            </div>
+
+            <div class="form-outline mb-4">
+              {{ form_row(registrationForm.email, {
+                'attr': {'class': 'form-control', 'placeholder': 'Adresse e-mail'}
+              }) }}
+            </div>
+
+            <div class="form-outline mb-4">
+              {{ form_row(registrationForm.plainPassword, {
+                'attr': {'class': 'form-control', 'placeholder': 'Mot de passe'}
+              }) }}
+            </div>
+
+            <div class="form-outline mb-4">
+                {{ form_row(registrationForm.confirmPassword, {
+                  'attr': {'class': 'form-control', 'placeholder': 'Confirmer le mot de passe'}
+                }) }}
+              </div>
+
+            
+            <div class="form-outline mb-4">
+              {{ form_row(registrationForm.accountType, {
+                'attr': {'class': 'form-select'}
+              }) }}
+            </div>
+
+            <div class="form-check d-flex justify-content-center mb-4">
+              {{ form_row(registrationForm.agreeTerms, {
+                'attr': {'class': 'form-check-input me-2'}
+              }) }}
+              <label class="form-check-label ms-2" for="{{ registrationForm.agreeTerms.vars.id }}">
+                J’accepte les conditions d’utilisation
+              </label>
+            </div>
+          
+
+            <button type="submit" class="btn btn-primary btn-block mb-4">
+              S’inscrire
+            </button>
+            {{ form_end(registrationForm) }}
+
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 mb-5 mb-lg-0">
+        <img
+          src="https://static.neopse.com/medias/p/2153/site/d3/00/3e/d3003ea91cb33b13d3c317520b3dbb581916a96d.png?v=v1"
+          class="w-100 rounded-4 shadow-4"
+          alt="Inscription illustration"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
