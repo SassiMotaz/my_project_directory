@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Forum - Discussions{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h1 class="mb-4 text-center">💬 Forum - Discussions</h1>
+
+    <div class="d-flex justify-content-end mb-3">
+        <a href="{{ path('app_forum_post_new') }}" class="btn btn-success">➕ Nouveau Sujet</a>
+    </div>
+
+    {% if forum_posts is not empty %}
+        <ul class="list-group">
+            {% for forum_post in forum_posts %}
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">
+                            <a href="{{ path('app_forum_post_show', {'id': forum_post.id}) }}" 
+                               class="text-decoration-none text-primary">
+                                {{ forum_post.title }}
+                            </a>
+                        </div>
+                        <small class="text-muted">
+                            🧑‍💻 Auteur : {{forum_post.author}}<br>
+                            🕓 Créé le : {{ forum_post.createdAt ? forum_post.createdAt|date('d/m/Y H:i') : '' }}
+                        </small>
+                        <p class="mt-2 text-secondary">
+                            {{ forum_post.content|u.truncate(120, '...') }}
+                        </p>
+                    </div>
+                    <span class="badge bg-primary rounded-pill align-self-center">
+                        {{ forum_post.forumReplies|length }} 💬
+                    </span>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <div class="alert alert-info text-center mt-4">
+            Aucun sujet trouvé. Soyez le premier à en créer un ! 🚀
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

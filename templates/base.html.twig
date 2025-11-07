@@ -108,12 +108,14 @@
   <!-- Header -->
   <header class="navbar">
     <div class="logo">
-      <img src="{{ asset('assets/logo.jpg') }}" alt="Logo" width="30" height="24" class="d-inline-block align-text-top"> 
+      <img src="{{asset('images/logo.jpg')}}"
+      alt="Logo" width="30" height="24" class="d-inline-block align-text-top"> 
       &nbsp; CliniKids
     </div>
     <nav>
       <a href="{{path('app_home')}}">Accueil</a>
       <a href="{{path('app_cours_index')}}">Cours</a>
+      <a href="{{path('app_forum_post_index')}}">Forum</a>
       <a href="#">À propos</a>
       <a href="#">Contact</a>
       {% if  app.user %}

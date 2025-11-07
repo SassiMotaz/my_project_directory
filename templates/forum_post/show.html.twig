@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ forum_post.title }}{% endblock %}
+
+{% block body %}
+
+<div class="container my-5">
+
+    <!-- 🧱 Forum Post Card -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <h2 class="card-title text-primary fw-bold">
+                {{ forum_post.title }}
+            </h2>
+            <p class="text-muted mb-1">
+                <i class="bi bi-person-circle"></i> {{ forum_post.author.username ?? 'Utilisateur inconnu' }}
+                <span class="mx-2">•</span>
+                <i class="bi bi-calendar-event"></i>
+                {{ forum_post.createdAt ? forum_post.createdAt|date('d/m/Y H:i') : '' }}
+            </p>
+            <hr>
+            <p class="card-text fs-5">
+                {{ forum_post.content }}
+            </p>
+        </div>
+    </div>
+
+    <!-- 💬 Replies Section -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-light fw-semibold">
+            <i class="bi bi-chat-dots text-primary"></i> Réponses ({{ forum_post.forumReplies|length }})
+        </div>
+        <div class="card-body">
+            {% if forum_post.forumReplies is not empty %}
+                <ul class="list-group list-group-flush">
+                    {% for reply in forum_post.forumReplies %}
+                        <li class="list-group-item">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <strong>{{ reply.author.username ?? 'Anonyme' }}</strong>
+                                    <p class="mb-1">{{ reply.content }}</p>
+                                </div>
+                                <small class="text-muted">
+                                    {{ reply.createdAt|date('d/m/Y H:i') }}
+                                </small>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="text-muted text-center">Aucune réponse pour le moment 💬</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- ✏️ Add New Reply -->
+    <div class="card shadow-sm">
+        <div class="card-header bg-light fw-semibold">
+            <i class="bi bi-pencil-square text-success"></i> Ajouter une réponse
+        </div>
+        <div class="card-body">
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                {{ form_start(reply_form, {'attr': {'class': 'mb-3'}}) }}
+                    <div class="mb-3">
+                        {{ form_label(reply_form.content, 'Votre réponse', {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(reply_form.content, {'attr': {'class': 'form-control', 'rows': 4, 'placeholder': 'Écrivez votre réponse ici...'}}) }}
+                        {{ form_errors(reply_form.content) }}
+                    </div>
+                    <button type="submit" class="btn btn-success">
+                        <i class="bi bi-send"></i> Publier la réponse
+                    </button>
+                {{ form_end(reply_form) }}
+            {% else %}
+                <p class="text-muted">Vous devez être connecté pour répondre. <a href="{{ path('app_login') }}">Se connecter</a></p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a href="{{ path('app_forum_post_index') }}" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Retour à la liste
+        </a>
+    </div>
+</div>
+{% endblock %}

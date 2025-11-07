@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ForumReply index{% endblock %}
+
+{% block body %}
+    <h1>ForumReply index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Content</th>
+                <th>CreatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for forum_reply in forum_replies %}
+            <tr>
+                <td>{{ forum_reply.id }}</td>
+                <td>{{ forum_reply.content }}</td>
+                <td>{{ forum_reply.createdAt ? forum_reply.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_forum_reply_show', {'id': forum_reply.id}) }}">show</a>
+                    <a href="{{ path('app_forum_reply_edit', {'id': forum_reply.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_forum_reply_new') }}">Create new</a>
+{% endblock %}

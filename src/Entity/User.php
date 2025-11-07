@@ -48,9 +48,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Cours::class, mappedBy: 'prof')]
     private Collection $cours;
 
+    /**
+     * @var Collection<int, ForumPost>
+     */
+    #[ORM\OneToMany(targetEntity: ForumPost::class, mappedBy: 'author')]
+    private Collection $forumPosts;
+
+    /**
+     * @var Collection<int, ForumReply>
+     */
+    #[ORM\OneToMany(targetEntity: ForumReply::class, mappedBy: 'author')]
+    private Collection $forumReplies;
+
     public function __construct()
     {
         $this->cours = new ArrayCollection();
+        $this->forumPosts = new ArrayCollection();
+        $this->forumReplies = new ArrayCollection();
     }
 
     
@@ -189,6 +203,73 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    /**
+     * @return Collection<int, ForumPost>
+     */
+    public function getForumPosts(): Collection
+    {
+        return $this->forumPosts;
+    }
+
+    public function addForumPost(ForumPost $forumPost): static
+    {
+        if (!$this->forumPosts->contains($forumPost)) {
+            $this->forumPosts->add($forumPost);
+            $forumPost->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeForumPost(ForumPost $forumPost): static
+    {
+        if ($this->forumPosts->removeElement($forumPost)) {
+            // set the owning side to null (unless already changed)
+            if ($forumPost->getAuthor() === $this) {
+                $forumPost->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ForumReply>
+     */
+    public function getForumReplies(): Collection
+    {
+        return $this->forumReplies;
+    }
+
+    public function addForumReply(ForumReply $forumReply): static
+    {
+        if (!$this->forumReplies->contains($forumReply)) {
+            $this->forumReplies->add($forumReply);
+            $forumReply->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeForumReply(ForumReply $forumReply): static
+    {
+        if ($this->forumReplies->removeElement($forumReply)) {
+            // set the owning side to null (unless already changed)
+            if ($forumReply->getAuthor() === $this) {
+                $forumReply->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    //to string method
+    public function __toString(): string
+    {
+        return $this->username ?? '';
+    }
+
+    //
     
 
     
