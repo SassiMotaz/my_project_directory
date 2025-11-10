@@ -43,6 +43,15 @@
                                 <small class="text-muted">
                                     {{ reply.createdAt|date('d/m/Y H:i') }}
                                 </small>
+                                <!-- the user connect can delete his own reply -->
+                                {% if is_granted('IS_AUTHENTICATED_FULLY') and app.user.id == reply.author.id %}
+                                    <form method="post" action="{{ path('app_forum_reply_delete', {'id': reply.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette réponse ?');" class="ms-3">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ reply.id) }}">
+                                        <button class="btn btn-sm btn-outline-danger" type="submit" title="Supprimer la réponse">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form>
+                                {% endif %}
                             </div>
                         </li>
                     {% endfor %}
@@ -74,6 +83,7 @@
                 <p class="text-muted">Vous devez être connecté pour répondre. <a href="{{ path('app_login') }}">Se connecter</a></p>
             {% endif %}
         </div>
+        
     </div>
 
     <div class="mt-4">

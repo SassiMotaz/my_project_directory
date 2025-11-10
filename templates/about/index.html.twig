@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}À propos de CliniKids{% endblock %}
+
+{% block body %}
+<!-- Section principale -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <h1 class="text-center mb-5 text-primary fw-bold">🌟 À propos de CliniKids</h1>
+    <div class="row align-items-center">
+      <div class="col-md-5 mb-4 mb-md-0 text-center">
+        <img src="{{ asset('images/logo.jpg') }}" 
+             class="img-fluid rounded shadow-sm" 
+             alt="À propos de CliniKids" 
+             width="300">
+      </div>
+      <div class="col-md-7">
+        <p class="lead">
+          <strong>CliniKids</strong> est bien plus qu’un simple site web — 
+          c’est un espace où la pédagogie rencontre la passion du soin. 
+          Conçu pour les étudiants en sciences infirmières, il offre une manière 
+          moderne et interactive d’apprendre les soins pédiatriques.
+        </p>
+        <hr>
+        <h3 class="text-primary mt-4">💡 Notre mission</h3>
+        <p>
+          Nous voulons que chaque étudiant puisse apprendre à son rythme, 
+          comprendre en profondeur et surtout, prendre plaisir à se former. 
+          Avec <strong>CliniKids</strong>, la théorie et la pratique se rejoignent 
+          à travers des cours, tests, quiz et échanges enrichissants.
+        </p>
+
+        <h3 class="text-primary mt-4">🚀 Notre vision</h3>
+        <p>
+          Avec CliniKids, apprendre devient une aventure. 
+          Nous voulons aider chaque futur infirmier à surmonter ses difficultés, 
+          à développer ses compétences cliniques, et à grandir dans un environnement 
+          numérique stimulant et bienveillant.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section valeurs stylisée -->
+<section class="py-5 bg-white">
+  <div class="container text-center">
+    <h2 class="text-primary mb-5 fw-bold">Nos valeurs 💗</h2>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100">
+          <div class="card-body">
+            <div class="mb-3 text-primary fs-1">💗</div>
+            <h5 class="card-title text-primary">L’engagement</h5>
+            <p class="card-text">
+              Apprendre à soigner un enfant demande passion, dévouement et une vraie volonté d’aider.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100">
+          <div class="card-body">
+            <div class="mb-3 text-warning fs-1">✨</div>
+            <h5 class="card-title text-warning">La passion</h5>
+            <p class="card-text">
+              Elle nous pousse à transmettre le goût du soin avec cœur et enthousiasme dans tout ce que nous faisons.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100">
+          <div class="card-body">
+            <div class="mb-3 text-success fs-1">🤝</div>
+            <h5 class="card-title text-success">L’entraide</h5>
+            <p class="card-text">
+              Ensemble, nous créons une communauté solidaire et bienveillante où chacun peut apprendre et progresser.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="mt-5 fs-5 text-secondary">
+      Ces valeurs guident chacune de nos actions et donnent du sens à notre mission :  
+      <em>former avec bienveillance les soignants de demain.</em>
+    </p>
+  </div>
+</section>
+{% endblock %}

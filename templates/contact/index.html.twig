@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contactez-nous - CliniKids{% endblock %}
+
+{% block body %}
+<section class="py-5 bg-light">
+  <div class="container">
+    <h1 class="text-center text-primary mb-5 fw-bold">📬 Contactez-nous</h1>
+    <div class="row g-4">
+      <!-- Formulaire de contact -->
+      <div class="col-lg-6">
+        <div class="card shadow-sm border-0">
+          <div class="card-body">
+            <h4 class="card-title mb-4 text-primary">Envoyez-nous un message 💌</h4>
+            <form method="post" action="#">
+              <div class="mb-3">
+                <label for="name" class="form-label">Nom complet</label>
+                <input type="text" id="name" name="name" class="form-control" placeholder="Votre nom" required>
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Adresse e-mail</label>
+                <input type="email" id="email" name="email" class="form-control" placeholder="exemple@email.com" required>
+              </div>
+              <div class="mb-3">
+                <label for="subject" class="form-label">Sujet</label>
+                <input type="text" id="subject" name="subject" class="form-control" placeholder="Sujet de votre message" required>
+              </div>
+              <div class="mb-3">
+                <label for="message" class="form-label">Message</label>
+                <textarea id="message" name="message" rows="5" class="form-control" placeholder="Votre message..." required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary w-100">Envoyer le message</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Infos de contact -->
+      <div class="col-lg-6">
+        <div class="card shadow-sm border-0 h-100">
+          <div class="card-body">
+            <h4 class="card-title mb-4 text-primary">Nos coordonnées 📍</h4>
+            <p><i class="bi bi-geo-alt-fill text-primary"></i> Rue Habib Bourguiba, Tunis, Tunisie</p>
+            <p><i class="bi bi-envelope-fill text-primary"></i> contact@clinikids.com</p>
+            <p><i class="bi bi-telephone-fill text-primary"></i> +216 22 333 444</p>
+            <hr>
+            <h5 class="text-secondary mb-3">Nos horaires 🕒</h5>
+            <ul class="list-unstyled">
+              <li>Lundi - Vendredi : <strong>08h30 à 18h00</strong></li>
+              <li>Samedi : <strong>09h00 à 13h00</strong></li>
+              <li>Dimanche : Fermé</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Carte Google Maps -->
+    <div class="mt-5">
+      <h4 class="text-center text-primary mb-3">Trouvez-nous sur la carte 🗺️</h4>
+      <div class="ratio ratio-16x9 shadow-sm rounded">
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3237.112261325894!2d10.181667815262632!3d36.80649427994454!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x130212b067b8696f%3A0x4c18e5f3e8de2a8!2sTunis%2C%20Tunisia!5e0!3m2!1sfr!2stn!4v1688123456789!5m2!1sfr!2stn" 
+          width="100%" 
+          height="400" 
+          style="border:0;" 
+          allowfullscreen="" 
+          loading="lazy">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
