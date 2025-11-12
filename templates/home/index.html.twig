@@ -1,47 +1,132 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Accueil{% endblock %}
 
 {% block body %}
 
-  <style>
-    /* Hero */ .hero { background: linear-gradient(to right, #00bcd4, #0097a7); color: white; text-align: center; padding: 80px 20px; } .hero h1 { font-size: 2.5rem; } .hero p { font-size: 1.2rem; margin: 10px 0 30px; } .btn-primary { background-color: white; color: #00bcd4; padding: 10px 20px; border: none; border-radius: 6px; font-size: 1rem; cursor: pointer; } /* Features */ .features { display: flex; justify-content: space-around; margin: 50px 20px; flex-wrap: wrap; } .feature-card { background: white; padding: 20px; border-radius: 8px; width: 280px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); margin: 10px; text-align: center; } .feature-card h3 { margin-bottom: 15px; } .feature-card p { color: #666; }
-  </style>
+<style>
+  /* Hero */
+  .hero {
+    background: linear-gradient(to right, #00bcd4, #0097a7);
+    color: white;
+    text-align: center;
+    padding: 100px 20px;
+  }
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-content">
-      <h1>Apprenez à votre rythme, gratuitement 🎓</h1>
-      <p>Rejoignez des milliers d’apprenants et développez vos compétences avec nos cours en ligne.</p>
-      <button class="btn-primary">Commencer maintenant</button>
-    </div>
-  </section>
+  .hero h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+  }
 
-  <!-- Features -->
-  <section class="features">
-    <div class="feature-card">
-      <h3>🎓 Cours variés</h3>
-      <p>Apprenez dans plusieurs domaines avec des cours adaptés à votre niveau.</p>
-    </div>
-    <div class="feature-card">
-      <h3>📜 Certificats gratuits</h3>
-      <p>Obtenez un certificat à la fin de chaque formation avec succès.</p>
-    </div>
-    <div class="feature-card">
-      <h3>💻 Accessible partout</h3>
-      <p>Accédez à vos cours depuis n’importe quel appareil, à tout moment.</p>
-    </div>
-    <div class="feature-card">
-      <h3>🎓 Cours variés</h3>
-      <p>Apprenez dans plusieurs domaines avec des cours adaptés à votre niveau.</p>
-    </div>
-    <div class="feature-card">
-      <h3>📜 Certificats gratuits</h3>
-      <p>Obtenez un certificat à la fin de chaque formation avec succès.</p>
-    </div>
-    <div class="feature-card">
-      <h3>💻 Accessible partout</h3>
-      <p>Accédez à vos cours depuis n’importe quel appareil, à tout moment.</p>
-    </div>
-  </section>
+  .hero p {
+    font-size: 1.2rem;
+    margin: 10px 0 30px;
+  }
+
+  .btn-primary {
+    background-color: white;
+    color: #00bcd4;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .btn-primary:hover {
+    background-color: #e0f7fa;
+    color: #00796b;
+  }
+
+  /* Features */
+  .features {
+    display: flex;
+    justify-content: center;
+    margin: 60px 20px;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .feature-card {
+    background: white;
+    padding: 25px;
+    border-radius: 8px;
+    width: 280px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .feature-card h3 {
+    margin-bottom: 15px;
+    color: #0097a7;
+  }
+
+  .feature-card p {
+    color: #666;
+    margin-bottom: 15px;
+  }
+
+  .feature-card a {
+    text-decoration: none;
+    color: #00bcd4;
+    font-weight: bold;
+  }
+
+  .feature-card a:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<!-- ✅ Hero Section -->
+<section class="hero">
+  <div class="hero-content">
+    <h1>Apprenez à votre rythme, gratuitement 🎓</h1>
+    <p>Rejoignez des milliers d’apprenants et développez vos compétences avec nos cours en ligne.</p>
+
+    {% if app.user %}
+      <a href="{{ path('app_cours_index') }}" class="btn-primary">Accéder aux cours</a>
+    {% else %}
+      <a href="{{ path('app_register') }}" class="btn-primary">Commencer maintenant</a>
+    {% endif %}
+  </div>
+</section>
+
+<!-- ✅ Features Section -->
+<section class="features">
+
+  <div class="feature-card">
+    <h3>📚 Cours</h3>
+    <p>Apprenez dans plusieurs domaines avec des cours adaptés à votre niveau.</p>
+    <a href="{{ path('app_cours_index') }}">Voir les cours →</a>
+  </div>
+
+  <div class="feature-card">
+    <h3>🧩 Quiz</h3>
+    <p>Testez vos connaissances à travers des quiz interactifs et amusants.</p>
+    <a href="{{ path('app_quiz_index') }}">Faire un quiz →</a>
+  </div>
+
+  <div class="feature-card">
+    <h3>💬 Forum</h3>
+    <p>Discutez, posez vos questions et échangez avec d’autres apprenants.</p>
+    <a href="{{ path('app_forum_post_index') }}">Aller au forum →</a>
+  </div>
+
+  <div class="feature-card">
+    <h3>🏆 Certificats gratuits</h3>
+    <p>Recevez un certificat à la fin de chaque formation réussie.</p>
+    <a href="{{ path('app_about') }}">En savoir plus →</a>
+  </div>
+
+  
+</section>
+
 {% endblock %}

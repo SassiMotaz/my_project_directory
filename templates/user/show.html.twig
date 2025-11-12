@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil de {{ user.username }}{% endblock %}
+
+{% block body %}
+<section class="bg-light py-5">
+    <div class="container">
+        <div class="row">
+            <!-- PROFILE CARD -->
+            <div class="col-lg-12 mb-4 mb-sm-5">
+                <div class="card card-style1 border-0 shadow">
+                    <div class="card-body p-4 p-sm-5">
+                        <div class="row align-items-center">
+                            <!-- IMAGE -->
+                            <div class="col-lg-4 mb-4 mb-lg-0 text-center">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="{{ user.username }}" class="img-fluid rounded-circle shadow" width="200">
+                            </div>
+
+                            <!-- INFO -->
+                            <div class="col-lg-8">
+                                <div class="bg-secondary d-inline-block py-2 px-4 mb-3 rounded">
+                                    <h3 class="h2 text-white mb-0">{{ user.username }}</h3>
+                                    <span class="text-primary text-capitalize">{{ user.accountType }}</span>
+                                </div>
+
+                                <ul class="list-unstyled mb-4">
+                                    <li class="mb-2"><strong class="text-secondary me-2">Email :</strong> {{ user.email }}</li>
+                                    <li><strong class="text-secondary me-2">ID Utilisateur :</strong> {{ user.id }}</li>
+                                </ul>
+
+                                <!-- ✅ LOGOUT BUTTON -->
+                                {% if app.user %}
+                                    <form method="post" action="{{ path('app_logout') }}">
+                                        <button type="submit" class="btn btn-danger">
+                                            🚪 Se déconnecter
+                                        </button>
+                                    </form>
+                                {% endif %}
+
+                                <ul class="social-icon-style1 list-unstyled d-flex gap-3 mb-0 ps-0 mt-3">
+                                    <li><a href="#"><i class="ti-twitter"></i></a></li>
+                                    <li><a href="#"><i class="ti-facebook"></i></a></li>
+                                    <li><a href="#"><i class="ti-instagram"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ABOUT -->
+            <div class="col-lg-12 mb-4 mb-sm-5">
+                <div>
+                    <span class="section-title text-primary mb-3 mb-sm-4 d-block">À propos</span>
+                    <p>Bienvenue sur votre profil, {{ user.username }} ! Vous êtes actuellement enregistré en tant que <strong>{{ user.accountType }}</strong>.</p>
+                    <p>Votre compte vous permet d’accéder à nos quiz, tableaux de bord et fonctionnalités personnalisées selon votre rôle.</p>
+                </div>
+            </div>
+
+            <!-- SKILLS / STATISTIQUES -->
+            <div class="col-lg-12 mb-4 mb-sm-5">
+                <span class="section-title text-primary mb-3 mb-sm-4 d-block">Statistiques</span>
+                <div class="progress-text mb-2">
+                    <div class="row">
+                        <div class="col-6">Taux de réussite au quiz</div>
+                        <div class="col-6 text-end">80%</div>
+                    </div>
+                </div>
+                <div class="progress mb-3" style="height: 6px;">
+                    <div class="progress-bar bg-secondary" style="width:80%"></div>
+                </div>
+
+                <div class="progress-text mb-2">
+                    <div class="row">
+                        <div class="col-6">Participation</div>
+                        <div class="col-6 text-end">65%</div>
+                    </div>
+                </div>
+                <div class="progress mb-3" style="height: 6px;">
+                    <div class="progress-bar bg-primary" style="width:65%"></div>
+                </div>
+            </div>
+
+            <!-- ACTION BUTTONS -->
+            <div class="col-lg-12 text-center mt-4">
+                <a href="{{ path('app_user_index') }}" class="btn btn-outline-secondary me-3">⬅️ Retour</a>
+
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PROFESSEUR') %}
+                    <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn btn-primary me-3">✏️ Modifier</a>
+                    {{ include('user/_delete_form.html.twig') }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

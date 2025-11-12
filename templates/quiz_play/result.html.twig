@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="container mt-4">
+    <h2>Résultat du quiz : {{ quiz.titre }}</h2>
+    <p>Score : <strong>{{ score }}/{{ total }}</strong></p>
+
+    <hr>
+    {% for question in quiz.questions %}
+        {% set answer = answers[question.id] ?? null %}
+        <div class="mb-4">
+            <p><strong>Q{{ loop.index }}:</strong> {{ question.texte }}</p>
+            {% if answer %}
+                {% if answer.isCorrect %}
+                    <p class="text-success">✅ Bonne réponse</p>
+                {% else %}
+                    <p class="text-danger">❌ Mauvaise réponse</p>
+                {% endif %}
+                <p><em>Justification :</em> {{ answer.justification }}</p>
+            {% endif %}
+        </div>
+        <hr>
+    {% endfor %}
+</div>
+{% endblock %}

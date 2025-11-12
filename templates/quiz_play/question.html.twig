@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="container mt-4">
+    <h2>Question {{ qIndex + 1 }}/{{ total }}</h2>
+    <p class="fs-4">{{ question.texte }}</p>
+
+    <form method="post">
+        {% for reponse in question.reponses %}
+            <div class="form-check">
+                <input type="radio" name="answer" value="{{ reponse.id }}" id="r{{ reponse.id }}" class="form-check-input">
+                <label for="r{{ reponse.id }}" class="form-check-label">{{ reponse.texte }}</label>
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary mt-3">Valider</button>
+    </form>
+</div>
+{% endblock %}

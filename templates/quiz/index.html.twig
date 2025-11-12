@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Quiz{% endblock %}
+
+{% block body %}
+<h1 class="mb-4 text-center">📘 Liste des Quiz</h1>
+
+<table class="table table-striped text-center">
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Titre</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for quiz in quizzes %}
+        <tr>
+            <td>{{ quiz.id }}</td>
+            <td>{{ quiz.titre }}</td>
+            <td>{{ quiz.description }}</td>
+            <td>
+                <a href="{{ path('app_quiz_show', {'id': quiz.id}) }}" class="btn btn-info btn-sm">👁️ Voir</a>
+
+                {# ✅ Afficher Modifier seulement pour PROFESSEUR ou ADMIN #}
+                {% if is_granted('ROLE_PROFESSEUR') or is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('app_quiz_edit', {'id': quiz.id}) }}" class="btn btn-warning btn-sm">✏️ Modifier</a>
+                {% endif %}
+
+                {# ✅ Bouton pour jouer visible à tous #}
+                <a href="{{ path('quiz_play', {'id': quiz.id}) }}" class="btn btn-success btn-sm">▶️ Jouer</a>
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="4" class="text-center text-muted">Aucun quiz trouvé.</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{# ✅ Bouton "Créer" visible seulement pour PROFESSEUR ou ADMIN #}
+{% if is_granted('ROLE_PROFESSEUR') or is_granted('ROLE_ADMIN') %}
+<div class="text-center mt-3">
+    <a href="{{ path('app_quiz_new') }}" class="btn btn-primary">➕ Créer un nouveau quiz</a>
+</div>
+{% endif %}
+{% endblock %}
