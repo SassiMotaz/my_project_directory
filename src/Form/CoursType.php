@@ -32,14 +32,21 @@ class CoursType extends AbstractType
                     'placeholder' => 'Rédigez le contenu ou la description du cours...'
                 ],
             ])
-            ->add('filePath', FileType::class, [
-                'label' => 'Fichier du cours (PDF, DOC, etc.)',
-                'required' => false,
-                'mapped' => false, // tu gères l'upload manuellement dans le controller
+
+            // file path is lien 
+            ->add('filePath', TextType::class, [
+                'label' => 'Fichier du cours (PDF, DOCX, etc.)',
+                'attr' => [
+                    'class' => 'form-control mb-3'
+                ],
+            ])      
+            ->add('Lien', TextType::class, [
+                'label' => 'Lien du cours (URL)',
                 'attr' => [
                     'class' => 'form-control mb-3'
                 ],
             ])
+                 
             ->add('createdat', null, [
                 'label' => 'Date de création',
                 'widget' => 'single_text',
@@ -55,6 +62,7 @@ class CoursType extends AbstractType
                     'class' => 'form-select mb-3'
                 ],
             ]);
+            
     }
 
     public function configureOptions(OptionsResolver $resolver): void

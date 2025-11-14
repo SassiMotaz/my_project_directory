@@ -105,25 +105,29 @@
   <div class="feature-card">
     <h3>📚 Cours</h3>
     <p>Apprenez dans plusieurs domaines avec des cours adaptés à votre niveau.</p>
-    <a href="{{ path('app_cours_index') }}">Voir les cours →</a>
+    
+    {% if app.user %}
+      <a href="{{ path('app_cours_index') }}">Voir les cours →</a>
+    {% endif %}
   </div>
 
   <div class="feature-card">
     <h3>🧩 Quiz</h3>
     <p>Testez vos connaissances à travers des quiz interactifs et amusants.</p>
-    <a href="{{ path('app_quiz_index') }}">Faire un quiz →</a>
+    {% if app.user %}
+      <a href="{{ path('app_quiz_index') }}">Faire un quiz →</a>
+    {% endif %}
+    
   </div>
 
   <div class="feature-card">
     <h3>💬 Forum</h3>
     <p>Discutez, posez vos questions et échangez avec d’autres apprenants.</p>
-    <a href="{{ path('app_forum_post_index') }}">Aller au forum →</a>
-  </div>
-
-  <div class="feature-card">
-    <h3>🏆 Certificats gratuits</h3>
-    <p>Recevez un certificat à la fin de chaque formation réussie.</p>
-    <a href="{{ path('app_about') }}">En savoir plus →</a>
+    {% if app.user %}
+      <a href="{{ path('app_forum_post_index') }}">Aller au forum →</a>
+    {% endif %}
+    
+    
   </div>
 
   

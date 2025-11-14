@@ -23,11 +23,17 @@ class Cours
     #[ORM\Column(length: 255)]
     private ?string $filePath = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $Lien = null;
+
+
     #[ORM\Column]
     private ?\DateTimeImmutable $createdat = null;
 
     #[ORM\ManyToOne(inversedBy: 'cours')]
     private ?User $prof = null;
+
+    
 
     public function getId(): ?int
     {
@@ -90,6 +96,18 @@ class Cours
     public function setProf(?User $prof): static
     {
         $this->prof = $prof;
+
+        return $this;
+    }
+
+    public function getLien(): ?string
+    {
+        return $this->Lien;
+    }
+
+    public function setLien(string $Lien): static
+    {
+        $this->Lien = $Lien;
 
         return $this;
     }

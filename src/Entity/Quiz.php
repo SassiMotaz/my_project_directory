@@ -91,4 +91,10 @@ class Quiz
 
         return $this;
     }
+
+    // ToString method to display the quiz title
+    public function __toString(): string
+    {
+        return $this->titre ?? '';
+    }
 }

@@ -29,7 +29,7 @@
                                 </ul>
 
                                 <!-- ✅ LOGOUT BUTTON -->
-                                {% if app.user %}
+                                {% if app.user and app.user.username == user.username %}
                                     <form method="post" action="{{ path('app_logout') }}">
                                         <button type="submit" class="btn btn-danger">
                                             🚪 Se déconnecter
@@ -38,9 +38,9 @@
                                 {% endif %}
 
                                 <ul class="social-icon-style1 list-unstyled d-flex gap-3 mb-0 ps-0 mt-3">
-                                    <li><a href="#"><i class="ti-twitter"></i></a></li>
-                                    <li><a href="#"><i class="ti-facebook"></i></a></li>
-                                    <li><a href="#"><i class="ti-instagram"></i></a></li>
+                                    <li><a href="#"><i class="bi bi-twitter"></i></a></li>
+                                    <li><a href="#"><i class="bi bi-facebook"></i></a></li>
+                                    <li><a href="#"><i class="bi bi-instagram"></i></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -85,7 +85,7 @@
             <div class="col-lg-12 text-center mt-4">
                 <a href="{{ path('app_user_index') }}" class="btn btn-outline-secondary me-3">⬅️ Retour</a>
 
-                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PROFESSEUR') %}
+                {% if is_granted('ROLE_ADMIN') %}
                     <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn btn-primary me-3">✏️ Modifier</a>
                     {{ include('user/_delete_form.html.twig') }}
                 {% endif %}

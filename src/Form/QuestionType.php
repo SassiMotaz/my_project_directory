@@ -14,18 +14,30 @@ class QuestionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('texte')
+            // Champ pour le texte de la question
+            ->add('texte', null, [
+                'label' => 'Texte de la question',
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => 'Entrez le texte de la question',
+                ],
+            ])
+            // Sélection du quiz associé
             ->add('quiz', EntityType::class, [
                 'class' => Quiz::class,
-                'choice_label' => 'id',
-            ])
-        ;
+                'choice_label' => 'titre', // Affiche le titre du quiz au lieu de l'ID
+                'label' => 'Quiz associé',
+                'placeholder' => 'Choisir un quiz', // Pour un select vide
+                'attr' => [
+                    'class' => 'form-control',
+                ],
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Question::class,
+            'data_class' => Question::class, // Lie le formulaire à l'entité Question
         ]);
     }
 }

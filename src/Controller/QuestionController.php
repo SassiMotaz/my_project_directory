@@ -10,11 +10,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/question')]
 final class QuestionController extends AbstractController
 {
     #[Route(name: 'app_question_index', methods: ['GET'])]
+    #[IsGranted('ROLE_PROFESSEUR')]
     public function index(QuestionRepository $questionRepository): Response
     {
         return $this->render('question/index.html.twig', [
@@ -23,6 +25,7 @@ final class QuestionController extends AbstractController
     }
 
     #[Route('/new', name: 'app_question_new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_PROFESSEUR')]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $question = new Question();
@@ -43,6 +46,7 @@ final class QuestionController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_question_show', methods: ['GET'])]
+    #[IsGranted('ROLE_PROFESSEUR')]
     public function show(Question $question): Response
     {
         return $this->render('question/show.html.twig', [
@@ -51,6 +55,7 @@ final class QuestionController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_question_edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_PROFESSEUR')]
     public function edit(Request $request, Question $question, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(QuestionType::class, $question);
@@ -69,6 +74,7 @@ final class QuestionController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_question_delete', methods: ['POST'])]
+    #[IsGranted('ROLE_PROFESSEUR')]
     public function delete(Request $request, Question $question, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$question->getId(), $request->getPayload()->getString('_token'))) {

@@ -10,8 +10,13 @@
     </div>
 
     <div class="mb-3">
-        {{ form_label(form.filePath, 'Fichier du cours', {'label_attr': {'class': 'form-label fw-bold'}}) }}
-        {{ form_widget(form.filePath, {'attr': {'class': 'form-control'}}) }}
+        {{ form_label(form.filePath, 'Lien de Fichier du cours', {'label_attr': {'class': 'form-label fw-bold'}}) }}
+        {{ form_widget(form.filePath, {'attr': {'class': 'form-control' , 'placeholder': 'Entrez le lien de fichier du cours'}}) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.Lien, 'lien de la vidéo', {'label_attr': {'class': 'form-label fw-bold'}}) }}
+        {{ form_widget(form.Lien, {'attr': {'class': 'form-control', 'placeholder': 'Entrez le lien de la vidéo du cours'}}) }}
     </div>
 
     <div class="mb-3">

@@ -9,6 +9,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class UserType extends AbstractType
 {
@@ -22,8 +25,55 @@ class UserType extends AbstractType
             ->add('email', EmailType::class, [
                 'label' => 'Email',
                 'attr' => ['class' => 'form-control']
+            ])
+            ->add('accountType', ChoiceType::class, [
+                'choices'  => [
+                    'Étudiant' => 'etudiant',
+                    'Professeur' => 'professeur',
+                    'Administration' => 'administration',
+                ],
+                'label' => 'Type de compte',
+                'expanded' => false,
+                'multiple' => false,
+                'attr' => ['class' => 'form-select']
+            ])
+            ->add('roles', ChoiceType::class, [
+                'choices' => [
+                    'Étudiant' => 'ROLE_ETUDIANT',
+                    'Professeur' => 'ROLE_PROFESSEUR',
+                    'Administration' => 'ROLE_ADMINISTRATION',
+                ],
+                'expanded' => true,  // affiche sous forme de cases à cocher
+                'multiple' => true,  // permet plusieurs rôles
+                'label' => 'Rôles',
+            ])
+            ->add('plainPassword', PasswordType::class, [
+                'mapped' => false,
+                'required' => false,
+                'label' => 'Mot de passe',
+                'attr' => ['autocomplete' => 'new-password', 'class' => 'form-control'],
+                'constraints' => [
+                    new Length([
+                        'min' => 6,
+                        'minMessage' => 'Le mot de passe doit faire au moins {{ limit }} caractères',
+                        'max' => 4096,
+                    ]),
+                ],
+            ])
+            // add confirm password 
+            ->add('confirmPassword', PasswordType::class, [
+                'mapped' => false,
+                'required' => false,
+                'label' => 'Confirmer le mot de passe',
+                'attr' => ['autocomplete' => 'new-password', 'class' => 'form-control'],
+                'constraints' => [
+                    new Length([
+                        'min' => 6,
+                        'minMessage' => 'Le mot de passe doit faire au moins {{ limit }} caractères',
+                        'max' => 4096,
+                    ]),
+                ],
             ]);
-            
     }
 
     public function configureOptions(OptionsResolver $resolver): void

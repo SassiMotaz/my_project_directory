@@ -1,11 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Reponse{% endblock %}
+{% block title %}Nouvelle réponse{% endblock %}
 
 {% block body %}
-    <h1>Create new Reponse</h1>
+<div class="container mt-5">
+    <h1 class="mb-4">Créer une nouvelle réponse</h1>
 
-    {{ include('reponse/_form.html.twig') }}
+    <div class="mb-3">
+        {{ include('reponse/_form.html.twig', {'button_label': 'Enregistrer'}) }}
+    </div>
 
-    <a href="{{ path('app_reponse_index') }}">back to list</a>
+    <a href="{{ path('app_reponse_index') }}" class="btn btn-secondary">Retour à la liste</a>
+</div>
 {% endblock %}

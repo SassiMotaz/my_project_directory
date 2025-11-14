@@ -2,72 +2,129 @@
 
 {% block title %}{{ cour.title }} - Détails du Cours{% endblock %}
 
-{% block body %}
-<div class="container mt-5">
-    <div class="card shadow-lg border-0">
-        <div class="card-body p-4">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h1 class="fw-bold text-primary mb-0">
-                    <i class="bi bi-journal-text"></i> {{ cour.title }}
-                </h1>
-                <a href="{{ path('app_cours_index') }}" class="btn btn-outline-secondary">
-                    <i class="bi bi-arrow-left"></i> Retour à la liste
-                </a>
-            </div>
-
-            <div class="text-muted mb-3">
-                <i class="bi bi-calendar3"></i> Publié le 
-                {{ cour.createdat ? cour.createdat|date('d/m/Y à H:i') : '—' }}
-            </div>
-
-            <hr>
-
-            <div class="mb-4">
-                <h5 class="text-secondary">Contenu du cours :</h5>
-                <p class="fs-5 mt-2" style="line-height: 1.7;">
-                    {{ cour.content|nl2br }}
-                </p>
-            </div>
-
-            {% if cour.filePath %}
-                <div class="mb-4">
-                    <h5 class="text-secondary mb-3">
-                        <i class="bi bi-file-earmark-text"></i> Fichier du cours :
-                    </h5>
-                    {% set extension = cour.filePath|split('.')|last %}
-                    
-                    {% if extension == 'pdf' %}
-                        <div class="ratio ratio-16x9 mb-3">
-                            <iframe src="{{ asset('uploads/cours/' ~ cour.filePath) }}" 
-                                    title="PDF du cours"
-                                    frameborder="0"
-                                    allowfullscreen>
-                            </iframe>
-                        </div>
-                    {% else %}
-                        <a href="{{ asset('uploads/cours/' ~ cour.filePath) }}" 
-                           download
-                           class="btn btn-outline-primary">
-                            <i class="bi bi-download"></i> Télécharger le fichier
+    {% block body %}
+        <div class="container mt-5">
+            <div class="card shadow-lg border-0">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h1 class="fw-bold text-primary mb-0">
+                            <i class="bi bi-journal-text"></i> {{ cour.title }}
+                        </h1>
+                        <a href="{{ path('app_cours_index') }}" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left"></i> Retour à la liste
                         </a>
-                    {% endif %}
-                </div>
-            {% else %}
-                <div class="alert alert-warning">
-                    Aucun fichier joint pour ce cours.
-                </div>
-            {% endif %}
-        </div>
+                    </div>
 
-        {% if is_granted('ROLE_PROFESSEUR') %}
-            <div class="card-footer d-flex justify-content-end gap-2">
-                <a href="{{ path('app_cours_edit', {'id': cour.id}) }}" 
-                    class="btn btn-warning">
-                    <i class="bi bi-pencil"></i> Modifier
-                </a>
-                {{ include('cours/_delete_form.html.twig') }}
+                    <div class="text-muted mb-3">
+                        <i class="bi bi-calendar3"></i> Publié le
+                        {{ cour.createdat ? cour.createdat|date('d/m/Y à H:i') : '—' }}
+                    </div>
+
+                    <hr>
+
+                    <div class="mb-4">
+                        <h5 class="text-secondary">Contenu du cours :</h5>
+                        <p class="fs-5 mt-2" style="line-height: 1.7;">
+                            {{ cour.content|nl2br }}
+                        </p>
+                    </div>
+
+                    {% if cour.lien %}
+    <div class="mb-4">
+        <h5 class="text-secondary mb-3">
+            <i class="bi bi-camera-video"></i> Vidéo du cours :
+        </h5>
+
+        {% set url = cour.lien %}
+
+        {# ----- Détection Google Drive ----- #}
+        {% if 'drive.google.com' in url %}
+            {% set videoId = url|split('/d/')[1]|split('/')[0] %}
+            <div class="ratio ratio-16x9 mb-3">
+                <iframe 
+                    src="https://drive.google.com/file/d/{{ videoId }}/preview"
+                    allow="autoplay"
+                    frameborder="0"
+                    allowfullscreen>
+                </iframe>
             </div>
+
+        {# ----- Détection YouTube ----- #}
+        {% elseif 'youtube.com' in url or 'youtu.be' in url %}
+            {% set videoId = '' %}
+            {% if 'v=' in url %}
+                {% set videoId = url|split('v=')[1]|split('&')[0] %}
+            {% elseif 'youtu.be/' in url %}
+                {% set videoId = url|split('youtu.be/')[1] %}
+            {% endif %}
+            <div class="ratio ratio-16x9 mb-3">
+                <iframe src="https://www.youtube.com/embed/{{ videoId }}" frameborder="0" allowfullscreen></iframe>
+            </div>
+
+        {# ----- Détection Vimeo ----- #}
+        {% elseif 'vimeo.com' in url %}
+            {% set videoId = url|split('vimeo.com/')[1] %}
+            <div class="ratio ratio-16x9 mb-3">
+                <iframe src="https://player.vimeo.com/video/{{ videoId }}" frameborder="0" allowfullscreen></iframe>
+            </div>
+
+        {# ----- Formats MP4 / WebM ----- #}
+        {% elseif url ends with '.mp4' or url ends with '.webm' %}
+            <video class="w-100 mb-3" controls>
+                <source src="{{ url }}" type="video/mp4">
+                Votre navigateur ne supporte pas la lecture vidéo.
+            </video>
+
+        {# ----- Lien classique ----- #}
+        {% else %}
+            <a href="{{ url }}" target="_blank" class="btn btn-outline-primary">
+                <i class="bi bi-box-arrow-up-right"></i> Ouvrir la vidéo
+            </a>
         {% endif %}
+
     </div>
-</div>
-{% endblock %}
+{% endif %}
+
+
+
+                                {% if cour.filePath %}
+                                    <div class="mb-4">
+                                        <h5 class="text-secondary mb-3">
+                                            <i class="bi bi-file-earmark-text"></i> Fichier du cours :
+                                        </h5>
+                                        {% set extension = cour.filePath|split('.')|last|lower %}
+
+                                            {% if extension == 'pdf' %}
+                                                <div class="ratio ratio-16x9 mb-3">
+                                                    <iframe src="{{ asset(cour.filePath) }}" title="PDF du cours" frameborder="0" allowfullscreen>
+                                                    </iframe>
+                                                </div>
+                                                <a href="{{ asset(cour.filePath) }}" target="_blank" class="btn btn-outline-primary">
+                                                    <i class="bi bi-box-arrow-up-right"></i> Ouvrir le fichier
+                                                </a>
+
+                                            {% else %}
+                                                <a href="{{ asset(cour.filePath) }}" target="_blank" class="btn btn-outline-primary">
+                                                    <i class="bi bi-box-arrow-up-right"></i> Ouvrir le fichier
+                                                </a>
+                                            {% endif %}
+                                        </div>
+                                    {% else %}
+                                        <div class="alert alert-warning">
+                                            Aucun fichier joint pour ce cours.
+                                        </div>
+                                    {% endif %}
+
+                                    </div>
+
+                                    {% if is_granted('ROLE_PROFESSEUR') %}
+                                        <div class="card-footer d-flex justify-content-end gap-2">
+                                            <a href="{{ path('app_cours_edit', {'id': cour.id}) }}" class="btn btn-warning">
+                                                <i class="bi bi-pencil"></i> Modifier
+                                            </a>
+                                            {{ include('cours/_delete_form.html.twig') }}
+                                        </div>
+                                    {% endif %}
+                                    </div>
+                                    </div>
+                                {% endblock %}
