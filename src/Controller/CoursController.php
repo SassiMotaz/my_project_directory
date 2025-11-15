@@ -65,10 +65,10 @@ final class CoursController extends AbstractController
             return $this->redirectToRoute('app_cours_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('cours/edit.html.twig', [
+        return $this->render('cours/new.html.twig', [
             'cour' => $cour,
-            'form' => $form,
-        ]);
+            'form' => $form->createView(),
+        ]);        
     }
 
     #[IsGranted('ROLE_PROFESSEUR')]

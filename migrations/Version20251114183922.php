@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20251113155808 extends AbstractMigration
+final class Version20251114183922 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -27,6 +27,7 @@ final class Version20251113155808 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_5FB6DEC71E27F6BF ON reponse (question_id)');
         $this->addSql('ALTER TABLE question ADD CONSTRAINT FK_B6F7494E853CD175 FOREIGN KEY (quiz_id) REFERENCES quiz (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE reponse ADD CONSTRAINT FK_5FB6DEC71E27F6BF FOREIGN KEY (question_id) REFERENCES question (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE cours ADD lien VARCHAR(255) NOT NULL');
     }
 
     public function down(Schema $schema): void
@@ -38,5 +39,6 @@ final class Version20251113155808 extends AbstractMigration
         $this->addSql('DROP TABLE question');
         $this->addSql('DROP TABLE quiz');
         $this->addSql('DROP TABLE reponse');
+        $this->addSql('ALTER TABLE cours DROP lien');
     }
 }

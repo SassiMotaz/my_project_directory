@@ -48,11 +48,12 @@ class RegistrationFormType extends AbstractType
                         'message' => 'Veuillez saisir une adresse e-mail.',
                     ]),
                     new Regex([
-                        'pattern' => '/^[a-zA-Z]+\.[a-zA-Z]+@etudiant-issit\.utm\.tn$/',
-                        'message' => 'L’adresse e-mail doit être au format nom.prenom@etudiant-issit.utm.tn.',
+                        'pattern' => '/^[a-zA-Z]+\.[a-zA-Z]+@(etudiant-)?issit\.utm\.tn$/',
+                        'message' => 'L’adresse e-mail doit être au format nom.prenom@etudiant-issit.utm.tn ou nom.prenom@issit.utm.tn.',
                     ]),
                 ],
             ])
+
 
             // Mot de passe
             ->add('plainPassword', PasswordType::class, [

@@ -2,63 +2,64 @@
 
 {% block title %}Liste des Cours{% endblock %}
 
-{% block body %}
-<div class="container mt-5">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="fw-bold text-primary">
-            <i class="bi bi-journal-bookmark"></i> Liste des Cours
-        </h1>
-        {% if is_granted('ROLE_PROFESSEUR') %}
-            <a href="{{ path('app_cours_new') }}" class="btn btn-success">
-                <i class="bi bi-plus-circle"></i> Nouveau Cours
-            </a>
-        {% endif %}
-    </div>
+    {% block body %}
+        <div class="container mt-5">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="fw-bold text-primary">
+                    <i class="bi bi-journal-bookmark"></i> Liste des Cours
+                </h1>
+                {% if is_granted('ROLE_PROFESSEUR') %}
+                    <a href="{{ path('app_cours_new') }}" class="btn btn-success">
+                        <i class="bi bi-plus-circle"></i> Nouveau Cours
+                    </a>
+                {% endif %}
+            </div>
 
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-        {% for cour in cours %}
-            <div class="col">
-                <div class="card shadow-sm h-100 border-0">
-                    <div class="card-body">
-                        <h5 class="card-title text-primary fw-bold">{{ cour.title }}</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">
-                            <i class="bi bi-calendar3"></i> {{ cour.createdat ? cour.createdat|date('d/m/Y H:i') : '—' }}
-                        </h6>
-                        <p class="card-text mt-2">
-                            {{ cour.content|length > 120 ? cour.content|slice(0, 120) ~ '...' : cour.content }}
-                        </p>
-                    </div>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                {% for cour in cours %}
+                    <div class="col">
+                        <div class="card shadow-sm h-100 border-0">
+                            <div class="card-body">
+                                <h5 class="card-title text-primary fw-bold">{{ cour.title }}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">
+                                    <i class="bi bi-calendar3"></i> {{ cour.createdat ? cour.createdat|date('d/m/Y H:i') : '—' }}
+                                </h6>
+                                <p class="card-text mt-2">
+                                    {{ cour.content|length > 120 ? cour.content|slice(0, 120) ~ '...' : cour.content }}
+                                </p>
+                            </div>
 
-                    <div class="card-footer bg-light border-0 d-flex justify-content-between align-items-center">
-                        <a href="{{ path('app_cours_show', {'id': cour.id}) }}" 
-                           class="btn btn-sm btn-outline-info">
-                            <i class="bi bi-eye"></i> Détails
-                        </a>
+                            <div class="card-footer bg-light border-0 d-flex justify-content-between align-items-center">
+                                <a href="{{ path('app_cours_show', {'id': cour.id}) }}"
+                                class="btn btn-sm btn-outline-info">
+                                <i class="bi bi-eye"></i> Détails
+                            </a>
 
-                        {% if is_granted('ROLE_PROF') %}
-                            <a href="{{ path('app_cours_edit', {'id': cour.id}) }}" 
-                               class="btn btn-sm btn-outline-warning">
+                            {% if is_granted('ROLE_PROF') %}
+                                <a href="{{ path('app_cours_edit', {'id': cour.id}) }}"
+                                class="btn btn-sm btn-outline-warning">
                                 <i class="bi bi-pencil"></i> Modifier
                             </a>
                         {% endif %}
 
                         {% if cour.filePath %}
-                            <a href="{{ asset('uploads/cours/' ~ cour.filePath) }}" 
-                               download 
-                               class="btn btn-sm btn-outline-primary">
-                                <i class="bi bi-download"></i> Télécharger
-                            </a>
-                        {% else %}
-                            <span class="text-muted small">Aucun fichier</span>
-                        {% endif %}
-                    </div>
-                </div>
+                            <a href="{{ asset(cour.filePath) }}"
+                            target="_blank"
+                            class="btn btn-sm btn-outline-primary">
+                            <i class="bi bi-folder2-open"></i> Ouvrir
+                        </a>
+                {% else %}
+                    <span class="text-muted small">Aucun fichier</span>
+                {% endif %}
+
+            </div>
+            </div>
             </div>
         {% else %}
             <div class="text-center text-muted py-5">
                 Aucun cours disponible pour le moment 📚
             </div>
         {% endfor %}
-    </div>
-</div>
-{% endblock %}
+        </div>
+        </div>
+    {% endblock %}
