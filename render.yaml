@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: symfony-app
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: APP_ENV
+        value: prod
+      - key: APP_DEBUG
+        value: 0
+      - key: DATABASE_URL
+        fromDatabase:
+          name: symfonydb
+          property: connectionString
+
+databases:
+  - name: symfonydb
+    plan: free
+    ipAllowList: []
