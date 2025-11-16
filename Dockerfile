@@ -1,23 +1,26 @@
+# نبدأ بـ PHP-FPM
 FROM php:8.2-fpm
 
-# Install system dependencies
+# تثبيت بعض الحاجات اللازمة
 RUN apt-get update && apt-get install -y \
     git unzip libpq-dev libzip-dev zip \
-    && docker-php-ext-install pdo pdo_pgsql
+    && docker-php-ext-install pdo pdo_pgsql zip
 
-# Install Composer
+# تثبيت Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
 
-# Copy all project files
+# نسخ الملفات
 COPY . .
 
-# Install Symfony dependencies
+# تنفيذ composer install
 RUN composer install --no-dev --optimize-autoloader
 
-# Expose port
+# بناء الكاش (اختياري، حسب project)
+# RUN php bin/console cache:clear --env=prod
+
 EXPOSE 8080
 
-# Serve the Symfony App
+# نطلق السيرفر
 CMD ["php", "-S", "0.0.0.0:8080", "-t", "public"]
