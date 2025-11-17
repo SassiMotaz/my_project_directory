@@ -100,12 +100,10 @@ class RegistrationFormType extends AbstractType
 
             // Conditions d’utilisation
             ->add('agreeTerms', CheckboxType::class, [
-                'label' => 'J’accepte les conditions d’utilisation',
                 'mapped' => false,
-                'constraints' => [
-                    new IsTrue(message: 'Vous devez accepter les conditions d’utilisation.'),
-                ],
+                'constraints' => [new IsTrue(message: 'Vous devez accepter les conditions d’utilisation.')],
             ]);
+            
     }
 
     public function configureOptions(OptionsResolver $resolver): void

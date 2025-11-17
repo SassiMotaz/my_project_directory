@@ -12,6 +12,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 class UserType extends AbstractType
 {
@@ -49,29 +51,18 @@ class UserType extends AbstractType
             ])
             ->add('plainPassword', PasswordType::class, [
                 'mapped' => false,
-                'required' => false,
-                'label' => 'Mot de passe',
-                'attr' => ['autocomplete' => 'new-password', 'class' => 'form-control'],
                 'constraints' => [
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Le mot de passe doit faire au moins {{ limit }} caractères',
-                        'max' => 4096,
-                    ]),
+                    new NotBlank(message: 'Veuillez saisir un mot de passe.'),
+                    new Length(min: 6, max: 4096, minMessage: 'Le mot de passe doit contenir au moins {{ limit }} caractères.')
                 ],
-            ])
-            // add confirm password 
-            ->add('confirmPassword', PasswordType::class, [
+            ]);
+            
+            $builder->add('confirmPassword', PasswordType::class, [
                 'mapped' => false,
-                'required' => false,
-                'label' => 'Confirmer le mot de passe',
-                'attr' => ['autocomplete' => 'new-password', 'class' => 'form-control'],
                 'constraints' => [
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Le mot de passe doit faire au moins {{ limit }} caractères',
-                        'max' => 4096,
-                    ]),
+                    new NotBlank(message: 'Veuillez confirmer votre mot de passe.'),
+                    new Length(min: 6, max: 4096),
+                    new Assert\EqualTo(propertyPath: 'plainPassword', message: 'Les mots de passe doivent correspondre.')
                 ],
             ]);
     }
