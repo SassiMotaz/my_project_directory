@@ -12,6 +12,7 @@ COPY . .
 
 # Fix environment variable DEFAULT_URI to avoid cache:clear error
 ENV DEFAULT_URI=null
+ENV APP_SECRET=9f8d7a6b5c4e3f2d1a0b9c8d7e6f5a4b
 
 # Create Symfony needed folders (cache + logs + sessions)
 RUN mkdir -p var/cache var/log var/sessions \
