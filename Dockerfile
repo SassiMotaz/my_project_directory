@@ -1,3 +1,4 @@
+# Base image
 FROM php:8.2-fpm
 
 # Install system dependencies
@@ -11,17 +12,17 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 # Set working directory
 WORKDIR /var/www
 
-# Copy project
+# Copy project files
 COPY . .
 
-# Install dependencies
+# Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
-# Permissions for Symfony
+# Set permissions for Symfony
 RUN mkdir -p var && chmod -R 777 var
 
 # Expose port
 EXPOSE 8000
 
-# Run Symfony web server
+# Start Symfony server
 CMD ["php", "-S", "0.0.0.0:8000", "-t", "public"]
