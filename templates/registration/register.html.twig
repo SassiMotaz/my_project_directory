@@ -5,59 +5,63 @@
 {% endblock %}
 
 {% block body %}
-    <section class="text-center text-lg-start">
-        <style>
+<section class="text-center text-lg-start">
+
+    <style>
+        .cascading-right {
+            margin-right: -50px;
+        }
+        @media (max-width: 991.98px) {
             .cascading-right {
-                margin-right: -50px;
+                margin-right: 0;
             }
+        }
+    </style>
 
-            @media (max-width: 991.98px) {
-                .cascading-right {
-                    margin-right: 0;
-                }
-            }
-        </style>
+    <div class="container py-4">
+        <div class="row g-0 align-items-center">
 
-        <div class="container py-4">
-            <div class="row g-0 align-items-center">
-                <div class="col-lg-6 mb-5 mb-lg-0">
-                    <div class="card cascading-right bg-body-tertiary" style="backdrop-filter: blur(30px);">
-                        <div class="card-body p-5 shadow-5 text-center">
+            <div class="col-lg-6 mb-5 mb-lg-0">
+                <div class="card cascading-right bg-body-tertiary" style="backdrop-filter: blur(30px);">
+                    <div class="card-body p-5 shadow-5 text-center">
 
-                            <h2 class="fw-bold mb-5">Créer un compte</h2>
+                        <h2 class="fw-bold mb-5">Créer un compte</h2>
 
-                            {{ form_start(registrationForm) }}
+                        {{ form_start(registrationForm) }}
 
-                            {{ form_errors(form) }}
-                            {{ form_errors(form.username) }}
-                            {{ form_errors(form.email) }}
-                            {{ form_errors(form.plainPassword) }}
-                            {{ form_errors(form.confirmPassword) }}
-                            {{ form_errors(form.accountType) }}
-                            {{ form_errors(form.agreeTerms) }}
+                        <!-- Affichage global des erreurs -->
+                        {{ form_errors(registrationForm) }}
 
+                        <!-- Champs du formulaire -->
+                        {{ form_row(registrationForm.username) }}
+                        {{ form_row(registrationForm.email) }}
+                        {{ form_row(registrationForm.plainPassword) }}
+                        {{ form_row(registrationForm.confirmPassword) }}
+                        {{ form_row(registrationForm.accountType) }}
+                        {{ form_row(registrationForm.agreeTerms) }}
 
+                        <button type="submit" class="btn btn-primary btn-block mb-4">
+                            S’inscrire
+                        </button>
 
-                            <button type="submit" class="btn btn-primary btn-block mb-4">
-                                S’inscrire
-                            </button>
-                            {{ form_end(registrationForm) }}
-
-                        </div>
+                        {{ form_end(registrationForm) }}
                     </div>
-                    {% for message in app.flashes('error') %}
-                        <div class="alert alert-danger">{{ message }}</div>
-                    {% endfor %}
                 </div>
 
-                <div class="col-lg-6 mb-5 mb-lg-0">
-                    <img
+                {% for message in app.flashes('error') %}
+                    <div class="alert alert-danger mt-3">{{ message }}</div>
+                {% endfor %}
+            </div>
+
+            <div class="col-lg-6 mb-5 mb-lg-0">
+                <img
                     src="https://static.neopse.com/medias/p/2153/site/d3/00/3e/d3003ea91cb33b13d3c317520b3dbb581916a96d.png?v=v1"
                     class="w-100 rounded-4 shadow-4"
                     alt="Inscription illustration"
-                    />
-                </div>
+                />
             </div>
+
         </div>
-    </section>
+    </div>
+</section>
 {% endblock %}
