@@ -14,9 +14,11 @@ COPY . .
 ENV DEFAULT_URI=null
 ENV APP_SECRET=YourSecretHere
 
-RUN composer install --no-dev --optimize-autoloader --no-interaction
+# Create Symfony needed folders (cache + logs + sessions)
+RUN mkdir -p var/cache var/log var/sessions \
+    && chmod -R 777 var
 
-RUN mkdir -p var && chmod -R 777 var
+RUN composer install --no-dev --optimize-autoloader --no-interaction
 
 EXPOSE 8000
 
