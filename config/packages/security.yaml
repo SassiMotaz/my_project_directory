@@ -16,8 +16,6 @@ security:
         main:
             lazy: true
             provider: app_user_provider
-            csrf_protection:
-                enabled: true
             custom_authenticator: App\Security\LoginFormAuthenticator
             logout:
                 path: app_logout
