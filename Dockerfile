@@ -10,6 +10,10 @@ WORKDIR /var/www
 
 COPY . .
 
+# Fix environment variable DEFAULT_URI to avoid cache:clear error
+ENV DEFAULT_URI=null
+ENV APP_SECRET=YourSecretHere
+
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
 RUN mkdir -p var && chmod -R 777 var
