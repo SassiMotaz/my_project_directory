@@ -2,3 +2,4 @@ framework:
     secret: '%env(APP_SECRET)%'
     session:
         handler_id: null
+        save_path: '/tmp/sessions'
