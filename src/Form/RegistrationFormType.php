@@ -21,31 +21,31 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('username', null, [
                 'constraints' => [
-                    new NotBlank(['message' => 'Veuillez saisir un nom d\'utilisateur.']),
-                    new Length(['min' => 3, 'max' => 50]),
+                    new NotBlank(message: 'Veuillez saisir un nom d\'utilisateur.'),
+                    new Length(min: 3, max: 50),
                 ],
             ])
             ->add('email', null, [
                 'constraints' => [
-                    new NotBlank(['message' => 'Veuillez saisir un email.']),
-                    new Regex([
-                        'pattern' => '/^[a-zA-Z]+\.[a-zA-Z]+@etudiant-issit\.utm\.tn$/',
-                        'message' => 'Email doit être nom.prenom@etudiant-issit.utm.tn',
-                    ]),
+                    new NotBlank(message: 'Veuillez saisir un email.'),
+                    new Regex(
+                        pattern: '/^[a-zA-Z]+\.[a-zA-Z]+@etudiant-issit\.utm\.tn$/',
+                        message: 'Email doit être nom.prenom@etudiant-issit.utm.tn'
+                    ),
                 ],
             ])
             ->add('plainPassword', PasswordType::class, [
                 'mapped' => false,
                 'constraints' => [
-                    new NotBlank(['message' => 'Veuillez saisir un mot de passe.']),
-                    new Length(['min' => 6, 'max' => 4096]),
+                    new NotBlank(message: 'Veuillez saisir un mot de passe.'),
+                    new Length(min: 6, max: 4096),
                 ],
             ])
             ->add('confirmPassword', PasswordType::class, [
                 'mapped' => false,
                 'constraints' => [
-                    new NotBlank(['message' => 'Veuillez confirmer le mot de passe.']),
-                    new Length(['min' => 6, 'max' => 4096]),
+                    new NotBlank(message: 'Veuillez confirmer le mot de passe.'),
+                    new Length(min: 6, max: 4096),
                 ],
             ])
             ->add('accountType', ChoiceType::class, [
@@ -58,7 +58,7 @@ class RegistrationFormType extends AbstractType
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
-                    new IsTrue(['message' => 'Vous devez accepter les conditions.']),
+                    new IsTrue(message: 'Vous devez accepter les conditions.'),
                 ],
             ]);
     }
