@@ -17,12 +17,10 @@ security:
             lazy: true
             provider: app_user_provider
             custom_authenticator: App\Security\LoginFormAuthenticator
+            entry_point: App\Security\LoginFormAuthenticator  # Added: Specify your custom authenticator as the entry point
             logout:
                 path: app_logout
-            # CSRF is handled in the authenticator, but ensure it's enabled globally if needed
-            form_login:
-                enable_csrf: true  # Explicitly enable for form-based auth
-
+            # Removed form_login to avoid conflict - your custom authenticator handles login
             remember_me:
                 secret: '%kernel.secret%'
                 lifetime: 604800
