@@ -1,8 +1,7 @@
 framework:
     secret: '%env(APP_SECRET)%'
     session:
-        handler_id: null
-        save_path: '%kernel.project_dir%/var/sessions'
+        handler_id: Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler  # Changed to use DB for persistence
         cookie_secure: auto
         cookie_samesite: lax
         cookie_httponly: true

@@ -19,6 +19,9 @@ security:
             custom_authenticator: App\Security\LoginFormAuthenticator
             logout:
                 path: app_logout
+            # CSRF is handled in the authenticator, but ensure it's enabled globally if needed
+            form_login:
+                enable_csrf: true  # Explicitly enable for form-based auth
 
             remember_me:
                 secret: '%kernel.secret%'
