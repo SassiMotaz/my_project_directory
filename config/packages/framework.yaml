@@ -5,3 +5,5 @@ framework:
         save_path: '%kernel.project_dir%/var/sessions'
         cookie_secure: auto
         cookie_samesite: lax
+        cookie_httponly: true
+        cookie_path: /
