@@ -9,6 +9,7 @@
         "php": ">=8.2",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "ext-pdo_pgsql": "*",
         "amphp/http-client": "5",
         "doctrine/dbal": "^3",
         "doctrine/doctrine-bundle": "^2.18",
