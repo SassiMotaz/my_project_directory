@@ -24,6 +24,9 @@ class ForumReplyType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => ForumReply::class,
+            'csrf_protection' => true,        // active CSRF
+            'csrf_field_name' => '_token',    // champ token
+            'csrf_token_id'   => 'forum_post_item', // identifiant unique du token
         ]);
     }
 }

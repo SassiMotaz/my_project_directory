@@ -10,7 +10,7 @@
         <a href="{{ path('app_forum_post_new') }}" class="btn btn-success">➕ Nouveau Sujet</a>
     </div>
 
-    {% if forum_posts is not empty %}
+    {% if forum_posts is not empty %}       
         <ul class="list-group">
             {% for forum_post in forum_posts %}
                 <li class="list-group-item d-flex justify-content-between align-items-start">
@@ -22,16 +22,27 @@
                             </a>
                         </div>
                         <small class="text-muted">
-                            🧑‍💻 Auteur : {{forum_post.author}}<br>
+                            🧑‍💻 Auteur : {{ forum_post.author.username ?? 'Utilisateur inconnu' }}<br>
                             🕓 Créé le : {{ forum_post.createdAt ? forum_post.createdAt|date('d/m/Y H:i') : '' }}
                         </small>
                         <p class="mt-2 text-secondary">
                             {{ forum_post.content|u.truncate(120, '...') }}
                         </p>
                     </div>
-                    <span class="badge bg-primary rounded-pill align-self-center">
-                        {{ forum_post.forumReplies|length }} 💬
-                    </span>
+                    
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="badge bg-primary rounded-pill">
+                            {{ forum_post.forumReplies|length }} 💬
+                        </span>
+
+                        {# 🔹 Bouton Modifier si l'utilisateur connecté est l'auteur #}
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') and app.user.id == forum_post.author.id %}
+                            <a href="{{ path('app_forum_post_edit', {'id': forum_post.id}) }}" 
+                               class="btn btn-sm btn-warning" title="Modifier le post">
+                                ✏️ Modifier
+                            </a>
+                        {% endif %}
+                    </div>
                 </li>
             {% endfor %}
         </ul>
