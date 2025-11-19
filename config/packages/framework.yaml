@@ -1,5 +1,11 @@
 framework:
-    secret: '%env(APP_SECRET)%'
+    secret: "%env(APP_SECRET)%"
     session:
         handler_id: null
-        save_path: '/tmp/sessions'
+        save_path: "/tmp/sessions"
+
+    router:
+        utf8: true
+    csrf_protection: true
+    form: true
+    http_method_override: true
