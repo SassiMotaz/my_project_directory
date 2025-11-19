@@ -36,6 +36,9 @@ class QuizType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Quiz::class,
+            'csrf_protection' => true,        // active CSRF
+            'csrf_field_name' => '_token',    // champ token
+            'csrf_token_id'   => 'forum_post_item', // identifiant unique du token
         ]);
     }
 }
