@@ -38,6 +38,10 @@ class QuestionType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Question::class, // Lie le formulaire à l'entité Question
+            'csrf_protection' => true,        // active CSRF
+            'csrf_field_name' => '_token',    // champ token
+            'csrf_token_id'   => 'question_item', // identifiant unique du token
+            
         ]);
     }
 }
