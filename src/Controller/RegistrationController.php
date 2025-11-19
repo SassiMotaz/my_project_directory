@@ -30,13 +30,30 @@ class RegistrationController extends AbstractController
             } else {
                 $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
                 $user->setPassword($hashedPassword);
-
+            
+                // ⚡ Set roles based on accountType
+                switch ($user->getAccountType()) {
+                    case 'etudiant':
+                        $user->setRoles(['ROLE_ETUDIANT']);
+                        break;
+                    case 'professeur':
+                        $user->setRoles(['ROLE_PROFESSEUR']);
+                        break;
+                    case 'administration':
+                        $user->setRoles(['ROLE_ADMIN']);
+                        break;
+                    default:
+                        $user->setRoles(['ROLE_USER']);
+                        break;
+                }
+            
                 $entityManager->persist($user);
                 $entityManager->flush();
-
+            
                 $this->addFlash('success', 'Votre compte a été créé !');
                 return $this->redirectToRoute('app_login');
             }
+            
         }
 
         return $this->render('registration/register.html.twig', [
