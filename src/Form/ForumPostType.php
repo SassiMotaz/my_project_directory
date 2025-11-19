@@ -14,7 +14,7 @@ class ForumPostType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title' , null, [
+            ->add('title', null, [
                 'label' => 'Titre du post',
                 'attr' => [
                     'placeholder' => 'Ecrite le titre de ton post ici...'
@@ -26,13 +26,15 @@ class ForumPostType extends AbstractType
                     'placeholder' => 'Rédige le contenu de ton post ici...'
                 ],
             ]);
-            
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => ForumPost::class,
+            'csrf_protection' => true,        // active CSRF
+            'csrf_field_name' => '_token',    // champ token
+            'csrf_token_id'   => 'forum_post_item', // identifiant unique du token
         ]);
     }
 }
