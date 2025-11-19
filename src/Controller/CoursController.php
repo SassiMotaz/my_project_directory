@@ -32,15 +32,23 @@ final class CoursController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Assigner automatiquement le prof connecté
+            $cour->setProf($this->getUser());
+
+            // Assigner date actuelle si non remplie
+            if (!$cour->getCreatedat()) {
+                $cour->setCreatedat(new \DateTimeImmutable());
+            }
+
             $entityManager->persist($cour);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_cours_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_cours_index');
         }
 
         return $this->render('cours/new.html.twig', [
             'cour' => $cour,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 
@@ -62,12 +70,12 @@ final class CoursController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_cours_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_cours_index');
         }
 
         return $this->render('cours/edit.html.twig', [
             'cour' => $cour,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 
@@ -75,11 +83,11 @@ final class CoursController extends AbstractController
     #[Route('/{id}', name: 'app_cours_delete', methods: ['POST'])]
     public function delete(Request $request, Cours $cour, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $cour->getId(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $cour->getId(), $request->request->get('_token'))) {
             $entityManager->remove($cour);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_cours_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_cours_index');
     }
 }
