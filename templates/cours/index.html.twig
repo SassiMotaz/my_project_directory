@@ -39,7 +39,7 @@
                             <i class="bi bi-eye"></i> Détails
                         </a>
 
-                        {% if is_granted('ROLE_PROFESSEUR') %}
+                        {% if cour.filePath %}
                             <a href="
                             {{ asset(cour.filePath) }}
                             "
@@ -47,22 +47,12 @@
                             class="btn btn-sm btn-outline-primary">
                             <i class="bi bi-download"></i> Ouvrir le fichier
                         </a>
+                    {% else %}
+                        <span class="text-muted small">Aucun fichier</span>
                     {% endif %}
 
-                    {% if cour.filePath %}
-                        <a href="
-                        {{ asset(cour.filePath) }}
-                        "
-                        download
-                        class="btn btn-sm btn-outline-primary">
-                        <i class="bi bi-download"></i> Ouvrir le fichier
-                    </a>
-                {% else %}
-                    <span class="text-muted small">Aucun fichier</span>
-                {% endif %}
-
+                </div>
             </div>
-        </div>
         </div>
     {% else %}
         <div class="text-center text-muted py-5">
