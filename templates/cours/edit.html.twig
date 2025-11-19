@@ -3,10 +3,10 @@
 {% block title %}Edit Cours{% endblock %}
 
 {% block body %}
-<h1>Edit Cours</h1>
-
-{{ form_start(form, {'attr': {'class': 'container mt-4 p-4 bg-light shadow rounded'}}) }}
-    {{ include('cours/_form.html.twig', {'button_label': 'Update'}) }}
-{{ form_end(form) }}
-
+<div class="container mt-5">
+    {{ form_start(form) }}
+        {{ include('cours/_form.html.twig') }}
+        <button type="submit" class="btn btn-primary mt-3">Modifier le cours</button>
+    {{ form_end(form) }}
+</div>
 {% endblock %}
