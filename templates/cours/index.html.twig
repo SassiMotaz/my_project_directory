@@ -51,7 +51,7 @@
 
                     {% if cour.filePath %}
                         <a href="
-                        {{ asset('cour.filePath) }}
+                        {{ asset(cour.filePath) }}
                         "
                         download
                         class="btn btn-sm btn-outline-primary">
@@ -60,6 +60,7 @@
                 {% else %}
                     <span class="text-muted small">Aucun fichier</span>
                 {% endif %}
+
             </div>
         </div>
         </div>
