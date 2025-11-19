@@ -39,14 +39,14 @@ class CoursType extends AbstractType
                 'attr' => [
                     'class' => 'form-control mb-3'
                 ],
-            ])      
+            ])
             ->add('Lien', TextType::class, [
                 'label' => 'Lien du cours (URL)',
                 'attr' => [
                     'class' => 'form-control mb-3'
                 ],
             ])
-                 
+
             ->add('createdat', null, [
                 'label' => 'Date de création',
                 'widget' => 'single_text',
@@ -62,13 +62,15 @@ class CoursType extends AbstractType
                     'class' => 'form-select mb-3'
                 ],
             ]);
-            
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Cours::class,
+            'csrf_protection' => true,
+            'csrf_field_name' => '_token',
+            'csrf_token_id' => 'cours_item',
         ]);
     }
 }
