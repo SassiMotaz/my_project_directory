@@ -31,6 +31,7 @@ class Cours
     private ?\DateTimeImmutable $createdat = null;
 
     #[ORM\ManyToOne(inversedBy: 'cours')]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
     private ?User $prof = null;
 
     
