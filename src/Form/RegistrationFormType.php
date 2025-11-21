@@ -29,11 +29,11 @@ class RegistrationFormType extends AbstractType
                 'constraints' => [
                     new NotBlank(message: 'Veuillez saisir un email.'),
                     new Regex(
-                        pattern: '/^[a-zA-Z]+\.[a-zA-Z]+@etudiant-issit\.utm\.tn$/',
-                        message: 'Email doit être nom.prenom@etudiant-issit.utm.tn'
+                        pattern: '/^[a-zA-Z]+\.[a-zA-Z]+@(etudiant-|admin-)?issit\.utm\.tn$/',
+                        message: 'Email doit être nom.prenom@etudiant-issit.utm.tn, nom.prenom@issit.utm.tn ou nom.prenom@admin-issit.utm.tn'
                     ),
                 ],
-            ])
+            ])            
             ->add('plainPassword', PasswordType::class, [
                 'mapped' => false,
                 'constraints' => [
